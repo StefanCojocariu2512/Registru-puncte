@@ -1,65 +1,28 @@
 <!DOCTYPE html>
 <html lang="ro">
+
 <head>
   <meta charset="UTF-8">
-  <title>Rezultate Studenți</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    select, table { margin-top: 15px; }
-    table { border-collapse: collapse; width: 100%; max-width: 500px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background-color: #f4f4f4; }
-  </style>
+  <title>Punctaj</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <h2>Vizualizare Punctaje</h2>
-  <label for="sheetSelect">Selectează grupa / pagina:</label>
-  <select id="sheetSelect" onchange="renderTable()"></select>
+
+  <label for="class-selector">Selectează clasa</label>
+  <select id="class-selector" onchange="renderTable()"></select>
 
   <table id="dataTable">
     <thead>
       <tr>
-        <th>Cod Student</th>
+        <th>Cod</th>
         <th>Punctaj</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwh-Mx-1FFEjT5NSssTsKu57BATRdF5fz9DBsdwOT2-v-oxjYhPdi0Rm07wg5WRRQk6Dg/exec";
-    let allData = {};
-
-    async function loadData() {
-      const response = await fetch(API_URL);
-      allData = await response.json();
-      
-      const select = document.getElementById("sheetSelect");
-      select.innerHTML = "";
-      Object.keys(allData).forEach(sheetName => {
-        const opt = document.createElement("option");
-        opt.value = sheetName;
-        opt.innerText = sheetName;
-        select.appendChild(opt);
-      });
-      renderTable();
-    }
-
-    function renderTable() {
-      const selectedSheet = document.getElementById("sheetSelect").value;
-      const tbody = document.querySelector("#dataTable tbody");
-      tbody.innerHTML = "";
-
-      if (allData[selectedSheet]) {
-        allData[selectedSheet].forEach(item => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${item.cod}</td><td>${item.punctaj}</td>`;
-          tbody.appendChild(tr);
-        });
-      }
-    }
-
-    loadData();
-  </script>
+  <script src="scripts.js"></script>
 </body>
+
 </html>
