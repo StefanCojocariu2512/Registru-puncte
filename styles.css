@@ -1,51 +1,89 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+:root {
+    --background-color: #38669b; 
+    --header-color: #f6ae2d;
+    --font-color: white;
+    --class-color: #1c3450;
 }
 
-select,
-table {
-    margin-top: 15px;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 500px;
-}
-
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f4f4f4;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    background-image: url('background.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.principal {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px;
+    width: 90%;
+    /* max-width: 900px; */
+}
+
+.selector {
+    font-size: 2em;
+    color: var(--header-color);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 20%;
+    flex-shrink: 0;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.selector select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: white;
+    border-radius: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tabel {
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    flex-grow: 1;
+    padding: 15px;
+    min-height: calc(30 * 20px + 30px); 
+    overflow-y: auto;
 }
 
 table {
-    border-collapse: collapse;
     width: 100%;
-    max-width: 600px;
-    margin-top: 15px;
-}
-
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
+    text-align: center;
+    font-weight: bold;
+    border-collapse: collapse;
+    padding: 2px;
 }
 
 th {
-    background-color: #f4f4f4;
+    color: var(--header-color);
+    font-size: 2em;
+    height: 20px;
+}
+
+td {
+    height: 20px;
 }
 
 button {

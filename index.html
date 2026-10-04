@@ -9,18 +9,25 @@
 
 <body>
 
-  <label for="class-selector">Selectează clasa</label>
-  <select id="class-selector" onchange="renderTable()"></select>
+  <div class="principal">
+    <div class="selector">
+      <label for="class-selector">Clasa</label>
+      <select id="class-selector" onchange="renderTable()"></select>
+    </div>
 
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>Cod</th>
-        <th>Punctaj</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <div class="tabel">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Cod</th>
+            <th>Punctaj</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
 
   <script src="scripts.js"></script>
 </body>

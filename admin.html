@@ -3,29 +3,33 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Panou Admin - Modificare Punctaje</title>
+  <title>Punctaj - admin</title>
   <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
-  <h2>Panou Admin</h2>
-  <label for="class-selector">Selectează clasa</label>
-  <select id="class-selector" onchange="renderTable()"></select>
-
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>Cod</th>
-        <th>Punctaj</th>
-        <th>Acțiuni</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <div class="principal">
+    <div class="selector">
+      <label for="class-selector">Clasa</label>
+      <select id="class-selector" onchange="renderTable()"></select>
+    </div>
+    <div class="tabel">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Cod</th>
+            <th>Punctaj</th>
+            <th>Prenume</th>
+            <th>Nume</th>
+            <th>Acțiuni</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 
   <script src="admin_scripts.js"></script>
-    
 </body>
 
 </html>
