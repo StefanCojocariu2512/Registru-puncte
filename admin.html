@@ -19,7 +19,20 @@
     <div class="selector">
       <label for="class-selector">Clasa</label>
       <select id="class-selector" onchange="renderTable()"></select>
+
+      <!-- BUTOANELE NOI SUB SELECTOR -->
+      <div class="buttons-container">
+        <button class="btn-plus" onclick="updateScore('plus')">+</button>
+        <button class="btn-minus" onclick="updateScore('minus')">-</button>
+      </div>
+
+      <!-- AL DOILEA RÂND DE BUTOANE -->
+      <div class="buttons-container">
+        <button class="btn-plus" onclick="updateScore('+1')">+1</button>
+        <button class="btn-set10" onclick="updateScore('10')">10</button>
+      </div>
     </div>
+
     <div class="table">
       <table id="data">
         <tbody>

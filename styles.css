@@ -3,6 +3,8 @@
     --header-color: #f6ae2d;
     --font-color: white;
     --class-color: #1c3450;
+    --plus-color: #117461;
+    --minus-color: #a99e25;
 }
 
 * {
@@ -51,10 +53,10 @@ body {
 
 .selector select {
     padding: 8px 12px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     border: none;
     background: white;
-    border-radius: 16px;
+    /* border-radius: 16px; */
     font-weight: bold;
     text-align: center;
 }
@@ -62,7 +64,7 @@ body {
 .table {
     backdrop-filter: blur(14px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    border-radius: 16px;
+    /* border-radius: 16px; */
     flex-grow: 1;
     padding: 15px;
     min-height: calc(30 * 20px + 30px); 
@@ -94,13 +96,13 @@ button {
 }
 
 .btn-plus {
-    background-color: #4CAF50;
+    background-color: var(--plus-color);
     color: white;
     border: none;
 }
 
 .btn-minus {
-    background-color: #f44336;
+    background-color: var(--minus-color);
     color: white;
     border: none;
 }
@@ -108,7 +110,7 @@ button {
 .login {
     backdrop-filter: blur(14px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    border-radius: 16px;
+    /* border-radius: 16px; */
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -119,26 +121,77 @@ button {
 }
 
 input {
-    padding: 10px;
-    border-radius: 8px; 
+    padding: 2px;
+    /* border-radius: 8px;  */
     border: none;
+    text-align: center;
 }
 
 h2 {
     font-size: 2em;
 }
 
-input {
-    text-align: center;
-}
-
 button {
-    border-radius: 16px;
+    /* border-radius: 16px; */
     background-color: white;
     border: none;
 }
 
 .hidden { display: none !important; }
+
+.buttons-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.buttons-container button {
+    flex: 1;
+    font-size: 1em;
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#data tbody tr {
+    cursor: pointer;
+}
+
+#data tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.selected-row {
+    background-color: var(--header-color) !important;
+    color: var(--class-color) !important;
+    font-weight: bold;
+}
+
+/* Containerul de butoane (permite stivuirea pe mai multe rânduri) */
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.buttons-container button {
+    flex: 1;
+    /* font-size: 1.4em; */
+    /* padding: 8px 0; */
+    /* border-radius: 16px; */
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-set10 {
+    background-color: #2196F3 !important;
+    color: white !important;
+}
 
 @media screen and (max-width: 768px) {
     body {
