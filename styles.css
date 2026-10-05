@@ -22,6 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    min-height: 100vh;
 }
 
 .principal {
@@ -58,7 +59,7 @@ body {
     text-align: center;
 }
 
-.tabel {
+.table {
     backdrop-filter: blur(14px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     border-radius: 16px;
@@ -103,3 +104,38 @@ button {
     color: white;
     border: none;
 }
+
+.login {
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: auto;
+    text-align: center;
+    color: var(--header-color);
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px; 
+    border: none;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+input {
+    text-align: center;
+}
+
+button {
+    border-radius: 16px;
+    background-color: white;
+    border: none;
+}
+
+.hidden { display: none !important; }

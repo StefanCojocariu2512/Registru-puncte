@@ -8,28 +8,27 @@
 </head>
 
 <body>
-  <div class="principal">
+  <div id="login-window" class="login">
+    <h2>Admin</h2>
+    <input type="password" id="admin-pass" placeholder="Introdu parola">
+    <button onclick="authenticateAdmin()">Log in</button>
+  </div>
+
+  <div id="admin-content" class="principal hidden">
     <div class="selector">
       <label for="class-selector">Clasa</label>
       <select id="class-selector" onchange="renderTable()"></select>
     </div>
-    <div class="tabel">
-      <table id="dataTable">
-        <thead>
-          <tr>
-            <th>Cod</th>
-            <th>Punctaj</th>
-            <th>Prenume</th>
-            <th>Nume</th>
-            <th>Acțiuni</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
+    <div class="table">
+      <table id="data">
+        <tbody>
+          
+        </tbody>
       </table>
     </div>
   </div>
 
-  <script src="admin_scripts.js"></script>
+  <script src="scripts.js"></script>
 </body>
 
 </html>
