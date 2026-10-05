@@ -143,10 +143,9 @@ button {
 @media screen and (max-width: 768px) {
     body {
         padding: 15px 10px;
-        align-items: flex-start; /* Permite derularea întregii pagini dacă e nevoie */
+        align-items: flex-start; 
     }
 
-    /* Schimbăm direcția din linie în coloană */
     .principal {
         flex-direction: column;
         align-items: stretch;
@@ -154,41 +153,36 @@ button {
         gap: 20px;
     }
 
-    /* Selectorul ocupă tot spațiul orizontal și se poziționează sus */
     .selector {
         width: 100%;
-        font-size: 1.8em;
+        font-size: 2em;
         margin: 0;
     }
 
     .selector select {
         width: 100%;
-        font-size: 1.1rem;
-        padding: 12px;
+        font-size: 1rem;
     }
 
-    /* Containerul tabelului ocupă toată lățimea și permite scroll vertical */
     .table {
         width: 100%;
-        max-height: 65vh; /* Ocupă maxim 65% din înălțimea ecranului */
+        max-height: 65vh; 
         min-height: auto;
-        overflow-y: auto; /* Activează derularea verticală */
-        overflow-x: auto; /* Previne tăierea pe orizontală dacă e cazul */
+        overflow-y: auto; 
+        overflow-x: auto; 
         padding: 15px;
     }
 
-    /* Mărirea scrisului în tabel pentru lizibilitate pe mobil */
     th {
-        font-size: 1.8em;
-        padding-bottom: 10px;
+        font-size: 1.5em;
+        padding-bottom: 4px;
     }
 
     td {
         font-size: 1.2em;
-        padding: 8px 4px;
+        padding: 2px 2px;
     }
 
-    /* Mărire butoane acțiune */
     .btn-plus, .btn-minus {
         padding: 8px 16px;
         font-size: 1.2em;
