@@ -18,7 +18,7 @@ async function authenticateAdmin() {
             ADMIN_SECRET = inputPass;
             allData = res.data;
 
-            document.getElementById("login-window").classList.add("hidden");
+            document.getElementById("panou-login").classList.add("hidden");
             document.getElementById("admin-content").classList.remove("hidden");
 
             populateSelect();
@@ -33,7 +33,7 @@ async function authenticateAdmin() {
 }
 
 function populateSelect() {
-    const select = document.getElementById("class-selector");
+    const select = document.getElementById("class-panou-selector");
     select.innerHTML = "";
     Object.keys(allData).forEach(sheetName => {
         const opt = document.createElement("option");
@@ -44,7 +44,7 @@ function populateSelect() {
 }
 
 function renderTable() {
-    const selectedSheet = document.getElementById("class-selector").value;
+    const selectedSheet = document.getElementById("class-panou-selector").value;
     const tbody = document.querySelector("#data tbody");
     tbody.innerHTML = "";
     selectedRowIndex = null; // Resetăm rândul selectat la schimbarea clasei
@@ -74,6 +74,9 @@ function renderTable() {
             if (i > 0 && j === 3) {
                 td.id = `score-${selectedSheet}-${sheetRowIndex}`;
             }
+            if (i > 0 && j === 4) {
+                td.id = `used-${selectedSheet}-${sheetRowIndex}`;
+            }
             
             tr.appendChild(td);
         }
@@ -82,7 +85,7 @@ function renderTable() {
 }
 
 async function updateScore(action) {
-    const selectedSheet = document.getElementById("class-selector").value;
+    const selectedSheet = document.getElementById("class-panou-selector").value;
 
     if (!selectedRowIndex) {
         alert("Alege mai întâi un elev din tabel!");
@@ -107,12 +110,18 @@ async function updateScore(action) {
         if (res.status === "success") {
             // Actualizăm valoarea în celula din tabel
             const scoreCell = document.getElementById(`score-${selectedSheet}-${selectedRowIndex}`);
+            const usedCell = document.getElementById(`used-${selectedSheet}-${selectedRowIndex}`);
+
             if (scoreCell) {
                 scoreCell.innerText = res.newScore;
+            }
+            if (usedCell) {
+                usedCell.innerText = res.newUsed;
             }
             
             // Actualizăm valoarea și în memoria locală allData (Coloana 4 -> Index 3)
             allData[selectedSheet][selectedRowIndex - 1][3] = res.newScore;
+            allData[selectedSheet][selectedRowIndex - 1][4] = res.newUsed;
         } else {
             alert("Eroare: " + (res.message || "Neautorizat"));
         }
