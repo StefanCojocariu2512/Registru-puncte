@@ -193,6 +193,11 @@ button {
     color: white !important;
 }
 
+.selector, .table {
+    position: relative;
+    z-index: 10;
+}
+
 @media screen and (max-width: 768px) {
     body {
         padding: 15px 10px;
