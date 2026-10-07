@@ -1,7 +1,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbwh-Mx-1FFEjT5NSssTsKu57BATRdF5fz9DBsdwOT2-v-oxjYhPdi0Rm07wg5WRRQk6Dg/exec";
 let ADMIN_SECRET = "";
 let allData = {};
-let selectedRowIndex = null; // Rândul selectat din Sheet
+let randSelectat = null;
 
 async function authenticateAdmin() {
     const inputPass = document.getElementById("admin-pass").value;
@@ -21,8 +21,8 @@ async function authenticateAdmin() {
             document.getElementById("panou-login").classList.add("hidden");
             document.getElementById("admin-content").classList.remove("hidden");
 
-            populateSelect();
-            renderTable();
+            populeazaSelector();
+            populeazaTabela();
         } else if (res.status === "unauthorized") {
             alert("Parola incorectă!");
         }
@@ -32,7 +32,27 @@ async function authenticateAdmin() {
     }
 }
 
-function populateSelect() {
+function configurareInitiala() {
+    // Adauga un click listener pe tabela care indica codul din randul dat.
+    document.getElementById("data").addEventListener("click", function (event) {
+        const tr = event.target.closest("tr");
+
+        randSelectat = tr.rowIndex;
+
+        const prevSelected = this.querySelector(".selected-row");
+        if (prevSelected) {
+            prevSelected.classList.remove("selected-row");
+        }
+        if (randSelectat != 0) {
+            tr.classList.add('selected-row');
+        }
+        else {
+            randSelectat = null;
+        }
+    });
+}
+
+function populeazaSelector() {
     const select = document.getElementById("class-panou-selector");
     select.innerHTML = "";
     Object.keys(allData).forEach(sheetName => {
@@ -43,59 +63,41 @@ function populateSelect() {
     });
 }
 
-function renderTable() {
-    const selectedSheet = document.getElementById("class-panou-selector").value;
-    const tbody = document.querySelector("#data tbody");
-    tbody.innerHTML = "";
-    selectedRowIndex = null; // Resetăm rândul selectat la schimbarea clasei
+function populeazaTabela() {
+    const clasaSelectata = document.getElementById("class-panou-selector").value;
+    const randuriElevi = allData[clasaSelectata];
+    
+    if (!randuriElevi || randuriElevi.length === 0) 
+        return;
 
-    const rows = allData[selectedSheet];
-    if (!rows || rows.length === 0) return;
+    const tabela = document.querySelector("#data tbody");
+    tabela.innerHTML = "";
 
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < randuriElevi.length; i++) {
         const tr = document.createElement("tr");
-        const rowData = rows[i];
-        const sheetRowIndex = i + 1; // Indexul real din Google Sheet (rândul 1 = header)
+        const dateElev = randuriElevi[i];
 
-        if (i > 0) {
-            // Permitem selectarea doar pentru rândurile de date (nu pentru header)
-            tr.onclick = function() {
-                document.querySelectorAll("#data tbody tr").forEach(r => r.classList.remove("selected-row"));
-                this.classList.add("selected-row");
-                selectedRowIndex = sheetRowIndex;
-            };
-        }
-
-        for (let j = 0; j < rowData.length; j++) {
+        for (let j = 0; j < dateElev.length; j++) {
             let td = document.createElement(i === 0 ? "th" : "td");
-            td.innerText = rowData[j];
-            
-            // Atribuim un ID celulei de punctaj pentru actualizare directă pe ecran
-            if (i > 0 && j === 3) {
-                td.id = `score-${selectedSheet}-${sheetRowIndex}`;
-            }
-            if (i > 0 && j === 4) {
-                td.id = `used-${selectedSheet}-${sheetRowIndex}`;
-            }
-            
+            td.innerText = dateElev[j];
             tr.appendChild(td);
         }
-        tbody.appendChild(tr);
+        tabela.appendChild(tr);
     }
 }
 
-async function updateScore(action) {
-    const selectedSheet = document.getElementById("class-panou-selector").value;
-
-    if (!selectedRowIndex) {
-        alert("Alege mai întâi un elev din tabel!");
+async function modificaPunctaj(action) {
+    if (randSelectat == null)
         return;
-    }
 
+    const butoaneActiune = document.querySelectorAll(".buton-actiune");
+    butoaneActiune.forEach(btn => btn.disabled = true);
+
+    const clasaSelectata = document.getElementById("class-panou-selector").value;
     const payload = {
         secret: ADMIN_SECRET,
-        sheetName: selectedSheet,
-        rowIndex: selectedRowIndex,
+        sheetName: clasaSelectata,
+        rowIndex: randSelectat + 1, // Matching cu indexarea din GSuite.
         action: action
     };
 
@@ -106,27 +108,26 @@ async function updateScore(action) {
             body: JSON.stringify(payload)
         });
 
-        const res = await response.json();
-        if (res.status === "success") {
-            // Actualizăm valoarea în celula din tabel
-            const scoreCell = document.getElementById(`score-${selectedSheet}-${selectedRowIndex}`);
-            const usedCell = document.getElementById(`used-${selectedSheet}-${selectedRowIndex}`);
+        const responseJson = await response.json();
+        if (responseJson.status === "success") {
+            const tbody = document.querySelector("#data tbody");
+            if (!tbody) 
+                return null;
 
-            if (scoreCell) {
-                scoreCell.innerText = res.newScore;
-            }
-            if (usedCell) {
-                usedCell.innerText = res.newUsed;
-            }
-            
-            // Actualizăm valoarea și în memoria locală allData (Coloana 4 -> Index 3)
-            allData[selectedSheet][selectedRowIndex - 1][3] = res.newScore;
-            allData[selectedSheet][selectedRowIndex - 1][4] = res.newUsed;
-        } else {
-            alert("Eroare: " + (res.message || "Neautorizat"));
+            let randActualizat = responseJson.rowIndex - 1;
+            const rand = tbody.rows[randActualizat];
+
+            rand.cells[3].innerText = responseJson.newScore;
+            rand.cells[4].innerText = responseJson.newUsed;
+            allData[clasaSelectata][randActualizat][3] = responseJson.newScore;
+            allData[clasaSelectata][randActualizat][4] = responseJson.newUsed;
         }
+
     } catch (err) {
         alert("Eroare la trimiterea cererii!");
+    }
+    finally {
+        butoaneActiune.forEach(btn => btn.disabled = false);
     }
 }
 
@@ -136,7 +137,9 @@ async function loadData() {
     if (res.status === "success") {
         allData = res.data;
 
-        populateSelect();
-        renderTable();
+        populeazaSelector();
+        populeazaTabela();
     }
 }
+
+configurareInitiala();

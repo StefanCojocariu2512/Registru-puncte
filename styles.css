@@ -134,11 +134,11 @@ button {
     width: 100%;
 }
 
-#data tbody tr {
+tr {
     cursor: pointer;
 }
 
-#data tbody tr:hover {
+tr:hover {
     background-color: var(--background-color);
 }
 
@@ -148,7 +148,7 @@ button {
     font-weight: bold;
 }
 
-.panou-selector {
+.panou-selector .panou-tablou {
     position: relative;
     z-index: 10;
 }

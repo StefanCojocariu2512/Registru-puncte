@@ -18,16 +18,16 @@
   <div id="admin-content" class="panou hidden">
     <div class="panou-selector">
       <label for="class-panou-selector">Clasa</label>
-      <select id="class-panou-selector" onchange="renderTable()"></select>
+      <select id="class-panou-selector" onchange="populeazaTabela()"></select>
 
       <div class="buttons-container">
-        <button class="buton-actiune" onclick="updateScore('plus')">+</button>
-        <button class="buton-actiune" onclick="updateScore('minus')">-</button>
+        <button class="buton-actiune" onclick="modificaPunctaj('plus')">+</button>
+        <button class="buton-actiune" onclick="modificaPunctaj('minus')">-</button>
       </div>
 
       <div class="buttons-container">
-        <button class="buton-actiune" onclick="updateScore('+1')">+1</button>
-        <button class="buton-actiune" onclick="updateScore('10')">10</button>
+        <button class="buton-actiune" onclick="modificaPunctaj('+1')">+1</button>
+        <button class="buton-actiune" onclick="modificaPunctaj('10')">10</button>
       </div>
     </div>
 
