@@ -146,7 +146,7 @@ button {
     font-weight: bold;
 }
 
-.panou-selector, .table {
+.panou-selector {
     position: relative;
     z-index: 10;
 }
@@ -175,7 +175,7 @@ button {
         font-size: 1rem;
     }
 
-    .table {
+    .panou-tablou {
         width: 100%;
         max-height: 65vh; 
         min-height: auto;
